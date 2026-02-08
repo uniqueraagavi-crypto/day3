@@ -14,14 +14,18 @@
     box-sizing:border-box;
     font-family:'Poppins', sans-serif;
 }
+
 body{
     background: linear-gradient(135deg,#3e2723,#6d4c41);
     color:#fff;
     height:100vh;
     overflow:hidden;
 }
+
+/* FULLSCREEN SECTIONS */
 section{
-    height:100vh;
+    position:absolute;
+    inset:0;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -29,6 +33,8 @@ section{
     text-align:center;
     padding:20px;
 }
+
+/* TEXT */
 h1{
     font-family:'Pacifico', cursive;
     font-size:3rem;
@@ -37,14 +43,16 @@ h1{
 p{
     font-size:1.1rem;
     max-width:650px;
-    opacity:0.95;
     line-height:1.6;
+    opacity:0.95;
 }
 .small{
     font-size:0.9rem;
     opacity:0.7;
     margin-top:15px;
 }
+
+/* BUTTONS */
 button{
     margin-top:25px;
     padding:14px 30px;
@@ -60,39 +68,56 @@ button:hover{
     transform:scale(1.05);
     background:#ffe0b2;
 }
-.hidden{
-    display:none;
-}
+
+.hidden{ display:none; }
+
+/* FLOATING CHOCOLATES */
 .choco{
-    position:absolute;
+    position:fixed;
     font-size:22px;
     animation:float 8s linear infinite;
     opacity:0.75;
+    pointer-events:none;
 }
 @keyframes float{
-    from{transform:translateY(100vh);}
-    to{transform:translateY(-10vh);}
+    from{ transform:translateY(100vh); }
+    to{ transform:translateY(-10vh); }
 }
+
+/* 🔥 CONFETTI OVERLAY (THE FIX) */
+#confetti-layer{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+}
+
 .confetti{
     position:absolute;
+    top:-10px;
     width:8px;
     height:8px;
     background:#ffccbc;
-    animation:confetti 3s linear infinite;
+    animation:fall linear forwards;
 }
-@keyframes confetti{
-    from{transform:translateY(-10vh) rotate(0);}
-    to{transform:translateY(110vh) rotate(360deg);}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Floating Chocolates -->
+<!-- CONFETTI OVERLAY -->
+<div id="confetti-layer"></div>
+
+<!-- FLOATING CHOCOLATES -->
 <script>
 for(let i=0;i<22;i++){
-    let c=document.createElement("div");
+    const c=document.createElement("div");
     c.className="choco";
     c.style.left=Math.random()*100+"vw";
     c.style.animationDuration=5+Math.random()*5+"s";
@@ -105,13 +130,10 @@ for(let i=0;i<22;i++){
 <section id="page1">
     <h1>Happy Chocolate Day 🍫🤍</h1>
     <p>
-        For the one who makes my days sweeter without even trying.  
-        Some people love chocolates…  
-        I love <b>you</b> more.
+        For the one who makes my days sweeter without even trying.<br>
+        Some people love chocolates.... I love <b>you</b> more.
     </p>
-    <p class="small">
-        If love had a flavor, it would taste exactly like you.
-    </p>
+    <p class="small">If love had a flavor, it would taste exactly like you.</p>
     <button onclick="next()">Open Your Chocolate 🍬</button>
 </section>
 
@@ -119,13 +141,13 @@ for(let i=0;i<22;i++){
 <section id="page2" class="hidden">
     <h1>Just Something From My Heart 💌</h1>
     <p>
-        They say chocolate makes people happy.  
+        They say chocolate makes people happy.<br>
         But somehow, you do it better.
         <br><br>
-        With your presence, your care, and the way you make everything feel lighter,  
-        loving you feels like the sweetest habit I never want to break.
+	With your presence, your care, and the way you make everything feel lighter,
+        Loving you feels like the sweetest habit I never want to break.
         <br><br>
-        Chocolate melts in the mouth…  
+        Chocolate melts in the mouth…<br>
         you melt my heart.
     </p>
     <button onclick="next2()">One More Thing 🍫</button>
@@ -135,7 +157,7 @@ for(let i=0;i<22;i++){
 <section id="page3" class="hidden">
     <h1>One Important Question 💕</h1>
     <p>
-        I don’t need fancy gifts or big promises.  
+        I don’t need fancy gifts or big promises.<br>
         I just need you.
         <br><br>
         Will you be my forever favorite chocolate?
@@ -148,16 +170,14 @@ for(let i=0;i<22;i++){
 <section id="page4" class="hidden">
     <h1>YAYYYY 🤍</h1>
     <p>
-        I choose you.  
-        On chocolate days, on ordinary days,  
+        I choose you.<br>
+        On chocolate days, on ordinary days,<br>
         and on every day in between.
         <br><br>
-        Thank you for being my sweetness,  
+        Thank you for being my sweetness,<br>
         my comfort, and my favorite person.
     </p>
-    <p class="small">
-        One chocolate for today, a lifetime of love for tomorrow 🍫✨
-    </p>
+    <p class="small">One chocolate for today, a lifetime of love for tomorrow 🍫✨</p>
 </section>
 
 <script>
@@ -165,20 +185,26 @@ function next(){
     page1.classList.add("hidden");
     page2.classList.remove("hidden");
 }
+
 function next2(){
     page2.classList.add("hidden");
     page3.classList.remove("hidden");
 }
+
 function yes(){
     page3.classList.add("hidden");
     page4.classList.remove("hidden");
 
-    for(let i=0;i<60;i++){
-        let conf=document.createElement("div");
+    const layer = document.getElementById("confetti-layer");
+
+    for(let i=0;i<120;i++){
+        const conf = document.createElement("div");
         conf.className="confetti";
         conf.style.left=Math.random()*100+"vw";
-        conf.style.animationDuration=2+Math.random()*3+"s";
-        document.body.appendChild(conf);
+        conf.style.animationDuration=(2+Math.random()*3)+"s";
+        layer.appendChild(conf);
+
+        setTimeout(()=>conf.remove(),5000);
     }
 }
 </script>
