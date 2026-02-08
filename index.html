@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Chocolate Day 🍫</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+body{
+    background: linear-gradient(135deg,#3e2723,#6d4c41);
+    color:#fff;
+    height:100vh;
+    overflow:hidden;
+}
+section{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+h1{
+    font-family:'Pacifico', cursive;
+    font-size:3rem;
+    margin-bottom:15px;
+}
+p{
+    font-size:1.1rem;
+    max-width:650px;
+    opacity:0.95;
+    line-height:1.6;
+}
+.small{
+    font-size:0.9rem;
+    opacity:0.7;
+    margin-top:15px;
+}
+button{
+    margin-top:25px;
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ffccbc;
+    color:#3e2723;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover{
+    transform:scale(1.05);
+    background:#ffe0b2;
+}
+.hidden{
+    display:none;
+}
+.choco{
+    position:absolute;
+    font-size:22px;
+    animation:float 8s linear infinite;
+    opacity:0.75;
+}
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#ffccbc;
+    animation:confetti 3s linear infinite;
+}
+@keyframes confetti{
+    from{transform:translateY(-10vh) rotate(0);}
+    to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating Chocolates -->
+<script>
+for(let i=0;i<22;i++){
+    let c=document.createElement("div");
+    c.className="choco";
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDuration=5+Math.random()*5+"s";
+    c.innerHTML="🍫";
+    document.body.appendChild(c);
+}
+</script>
+
+<!-- PAGE 1 -->
+<section id="page1">
+    <h1>Happy Chocolate Day 🍫🤍</h1>
+    <p>
+        For the one who makes my days sweeter without even trying.  
+        Some people love chocolates…  
+        I love <b>you</b> more.
+    </p>
+    <p class="small">
+        If love had a flavor, it would taste exactly like you.
+    </p>
+    <button onclick="next()">Open Your Chocolate 🍬</button>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="hidden">
+    <h1>Just Something From My Heart 💌</h1>
+    <p>
+        They say chocolate makes people happy.  
+        But somehow, you do it better.
+        <br><br>
+        With your presence, your care, and the way you make everything feel lighter,  
+        loving you feels like the sweetest habit I never want to break.
+        <br><br>
+        Chocolate melts in the mouth…  
+        you melt my heart.
+    </p>
+    <button onclick="next2()">One More Thing 🍫</button>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="hidden">
+    <h1>One Important Question 💕</h1>
+    <p>
+        I don’t need fancy gifts or big promises.  
+        I just need you.
+        <br><br>
+        Will you be my forever favorite chocolate?
+    </p>
+    <button onclick="yes()">Yes, obviously 🍫</button>
+    <button onclick="yes()">How can I say no? 🍬</button>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="hidden">
+    <h1>YAYYYY 🤍</h1>
+    <p>
+        I choose you.  
+        On chocolate days, on ordinary days,  
+        and on every day in between.
+        <br><br>
+        Thank you for being my sweetness,  
+        my comfort, and my favorite person.
+    </p>
+    <p class="small">
+        One chocolate for today, a lifetime of love for tomorrow 🍫✨
+    </p>
+</section>
+
+<script>
+function next(){
+    page1.classList.add("hidden");
+    page2.classList.remove("hidden");
+}
+function next2(){
+    page2.classList.add("hidden");
+    page3.classList.remove("hidden");
+}
+function yes(){
+    page3.classList.add("hidden");
+    page4.classList.remove("hidden");
+
+    for(let i=0;i<60;i++){
+        let conf=document.createElement("div");
+        conf.className="confetti";
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.animationDuration=2+Math.random()*3+"s";
+        document.body.appendChild(conf);
+    }
+}
+</script>
+
+</body>
+</html>
